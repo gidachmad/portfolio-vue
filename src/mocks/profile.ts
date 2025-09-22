@@ -75,8 +75,8 @@ const experienceWorkTelkom = {
 }
 
 export const experience = [
+  experienceStudyS1Telkom,
   experiencePuti,
   experienceWorkTelkom,
   experienceStudyD3Telkom,
-  experienceStudyS1Telkom
 ]
