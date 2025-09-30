@@ -1,37 +1,41 @@
 <script setup lang="ts">
-import { experience } from '@/mocks/profile';
-import Timeline from '@/volt/Timeline.vue';
+import Accordion from '@/volt/Accordion.vue';
+import AccordionPanel from '@/volt/AccordionPanel.vue';
+import AccordionHeader from '@/volt/AccordionHeader.vue';
+import AccordionContent from '@/volt/AccordionContent.vue';
 import { Icon } from '@iconify/vue';
+import { experience } from '@/mocks/profile';
 import { ref } from 'vue';
 
-const events = ref(experience)
+const experiences = ref(experience)
+experiences.value.sort((a, b) => b.year_start - a.year_start)
 
 </script>
 
 <template>
-  <h2>Experiences</h2>
-  <div class="w-full">
-    <timeline :value="events">
-      <div >
+  <h3 class=" border-b-2 pb-2">Experiences</h3>
+  <div class="w-full bg-amber-500">
+    <Accordion>
+      <AccordionPanel v-for="(exp, index) in experiences" :value="index" :key="index">
+        <AccordionHeader class="text-left">
+          <span class="flex gap-2">
+            <span>
+              <Icon v-if="exp.type === 1" icon="mdi:briefcase" class="min-w-6 min-h-6" />
+              <Icon v-if="exp.type === 2" icon="mdi:account-student" class="min-w-6 min-h-6" />
+            </span>
+            <span class="font-bold">
+              {{ exp.company }}
+            </span>
+          </span>
+        </AccordionHeader>
 
-      </div>
-
-      <template #marker="slotProps">
-        <div class="border rounded-full p-4">
-          <Icon v-if="slotProps.item.type == 1" icon="mdi:work-outline" class="w-6 h-6" />
-          <Icon v-if="slotProps.item.type == 2" icon="mdi:account-student" class="w-6 h-6" />
-        </div>
-      </template>
-      <template #content="slotProps">
-        <div class="card rounded-sm border border-gray-100 p-6">
-          <h5>
-            {{ slotProps.item.company }}
-          </h5>
+        <AccordionContent class="">
+          <small>Role: {{ exp.role }}</small>
           <p>
-            {{ slotProps.item.role }}
+            {{ exp.description_en }}
           </p>
-        </div>
-      </template>
-    </timeline>
+        </AccordionContent>
+      </AccordionPanel>
+    </Accordion>
   </div>
 </template>

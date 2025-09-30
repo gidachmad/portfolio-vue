@@ -29,9 +29,10 @@ function switchTheme(event: boolean) {
   <header class="mt-10">
     <TheSettings :darkTheme="darkTheme" @switch-theme="switchTheme" />
   </header>
-  <main class="w-4/5 m-auto flex flex-col gap-4 items-center">
+  <main class="w-4/5 xl:w-2/5 m-auto flex flex-col gap-8 items-center">
     <TheAbout />
     <TheExperiences />
+    
   </main>
 </template>
 
